@@ -1,4 +1,4 @@
-import { getUserHistory } from "./history.service";
+import { getUserHistory } from "./history.service.js";
 
 export function getHistory(req, res) {
   try {

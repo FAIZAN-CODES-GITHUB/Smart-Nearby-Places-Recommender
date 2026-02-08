@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-const historySchema = new  mongoose.schema(
+const historySchema = new mongoose.Schema(
     {
         userId : {
-            type : string,
+            type : String,
             default : null
         },
         
@@ -12,7 +12,7 @@ const historySchema = new  mongoose.schema(
             required : true
         },
         
-        recommendPlaces : {
+       recommendedPlaces : {
             type : Array,
             required : true 
         }
@@ -22,4 +22,5 @@ const historySchema = new  mongoose.schema(
     
 )
 
-export const History = mongoose.model("History", historySchema);
+const History = mongoose.model("History", historySchema);
+export default History;

@@ -1,39 +1,51 @@
 import { users } from "../modules/auth/auth.service.js";
 
 export function authMiddleware(req , res , next){
-    try {
-        req.user = null;
 
-        const userIdHeader = req.headers["x-user-id"]
+  //Main Functionality
+    // try {
+    //     req.user = null;
 
-        if(!userIdHeader){
-            return next() ;
-        }
+    //     const userIdHeader = req.headers["x-user-id"]
 
-        const userId = Number(userIdHeader)
+    //     if(!userIdHeader){
+    //         return next() ;
+    //     }
 
-        if(Number.isNaN(userId)){
-            return next();
-        }
+    //     const userId = Number(userIdHeader)
 
-        const foundUser = users.find(user =>user.id === userId)
+    //     if(Number.isNaN(userId)){
+    //         return next();
+    //     }
 
-        if ( !foundUser){
-            return next();
-        }
+    //     const foundUser = users.find(user =>user.id === userId)
 
-        req.user = {
-            id :foundUser.id,
-            name : foundUser.name,
-            email : foundUser.email
-        };
+    //     if ( !foundUser){
+    //         return next();
+    //     }
 
-        next()
+    //     req.user = {
+    //         id :foundUser.id,
+    //         name : foundUser.name,
+    //         email : foundUser.email
+    //     };
 
+    //     next()
+    
+  const userId = req.headers["x-user-id"];
+ 
+  if (userId) {
+    req.user = { id: userId };
+  } else {
+    req.user = null;
+  }
 
-
-    } catch (error) {
-        req.user === null 
-        next();
-    }
+  next();
 }
+
+
+    // } catch (error) {
+    //     req.user === null 
+    //     next();
+    // }
+// }

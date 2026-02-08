@@ -4,11 +4,15 @@ import History from "./history.model.js";
 // const historyRecords = [];
 
 export async function recordHistory(historyData) {
+
+  console.log("🔥 recordHistory CALLED");
+  console.log("📦 Payload:", historyData);
   try {
+     console.log("Saving history:", historyData);
    const history = new History(historyData);
    await history.save();
 
-    // console.log("History recorded ", historyRecord);
+    console.log("History recorded ", historyRecord);
   } catch (error) {
     // Should be silent 
   }

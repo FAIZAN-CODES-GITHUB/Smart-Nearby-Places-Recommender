@@ -1,10 +1,10 @@
 import { getUserHistory } from "./history.service.js";
 
-export function getHistory(req, res) {
+export async function getHistory(req, res) {
   try {
     const userId = req.user.id;
 
-    const history = getUserHistory(userId);
+    const history = await getUserHistory(userId);
 
     return res.status(200).json({
       error: false,

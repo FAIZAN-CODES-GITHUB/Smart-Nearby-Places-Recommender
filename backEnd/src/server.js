@@ -1,4 +1,6 @@
 import app from "./app.js";
+import { env } from "./config/env.js";
+import { connectDatabase } from "./config/database.js";
 
 
 
@@ -22,9 +24,20 @@ import app from "./app.js";
 //     }
 // })
 
-const PORT = 3000 
+
+async function startServer() {
+    await connectDatabase();
+
+    app.listen(env.PORT , () =>{
+        console.log(`Server Running on port ${env.PORT}`)
+    })
+}
+
+startServer();
+
+// const PORT = 3000 
 
 
-app.listen(3000 , () => {
-    console.log("Server running on port 3000")
-})
+// app.listen(3000 , () => {
+//     console.log("Server running on port 3000")
+// })

@@ -4,7 +4,8 @@ export function validateMoods (req , res , next) {
     const body = req.body;
     
 
-
+  const {moods} = req.body;
+  
     if(!moods){
        return res.status(400).json({
             error : true,
@@ -12,7 +13,7 @@ export function validateMoods (req , res , next) {
 
         })
     }
-    const {moods} = req.body;
+    
 
     if (!Array.isArray(moods)){
         return res.status(400).json({
@@ -62,7 +63,12 @@ export function validateSignUp (req , res , next) {
         })
     }
 
-    if (!email || typeof email !== "string" || email.trim() === "" )
+    if (!email || typeof email !== "string" || email.trim() === "" ){
+        return res.status(400).json({
+            error : true,
+            message : "Email is required and must be correct"
+        })
+    }
 
     if ( !password ||  typeof password !== "string" ||password.trim() === ""){
         return res.status(400).json({
@@ -73,7 +79,7 @@ export function validateSignUp (req , res , next) {
     next()
 }
 
-export function validateLogin (next , req , res ){
+export function validateLogin (req , res , next) {
     const body = req.body;
 
     if ( !body){

@@ -1,59 +1,59 @@
-export const users = [];
+// export const users = [];
+
+// old signupController logic
+// export function signUpUser  (userData) {
+//     const {name , email , password}  = userData;
 
 
-export function signUpUser  (userData) {
-    const {name , email , password}  = userData;
+//     const existingUser  = users.find(user => user.email === email);
 
+//     if (existingUser){
+//         return {
+//             error : true ,
+//             message : "User Already Exist"
+//         }
+//     }
 
-    const existingUser  = users.find(user => user.email === email);
+//     const newUser = {
+//         id : users.length + 1,
+//         name,
+//         email,
+//         password
+//     }
 
-    if (existingUser){
-        return {
-            error : true ,
-            message : "User Already Exist"
-        }
-    }
+//     users.push(newUser)
 
-    const newUser = {
-        id : users.length + 1,
-        name,
-        email,
-        password
-    }
-
-    users.push(newUser)
-
-    return {
-        error : false,
-        user : {
-            id : newUser.id,
-            name : newUser.name ,
-            email : newUser.email,
+//     return {
+//         error : false,
+//         user : {
+//             id : newUser.id,
+//             name : newUser.name ,
+//             email : newUser.email,
             
-        }
+//         }
 
-    }
-} 
+//     }
+// } 
 
-export function loginUser (credentials){
-    const {email , password} = credentials
+// export function loginUser (credentials){
+//     const {email , password} = credentials
 
-    const founduser = users.find(user => user.email === email)
+//     const founduser = users.find(user => user.email === email)
 
-    if( !founduser || founduser.password !== password){
-        return {
-            error : true ,
-            message : "Invalid username or password"
-        }
-    }
+//     if( !founduser || founduser.password !== password){
+//         return {
+//             error : true ,
+//             message : "Invalid username or password"
+//         }
+//     }
 
-    return {
-        error : false,
-        user: {
-            id : founduser.id,
-            name : founduser.name,
-            email: founduser.email
-        }
-    }
+//     return {
+//         error : false,
+//         user: {
+//             id : founduser.id,
+//             name : founduser.name,
+//             email: founduser.email
+//         }
+//     }
 
-}
+// }

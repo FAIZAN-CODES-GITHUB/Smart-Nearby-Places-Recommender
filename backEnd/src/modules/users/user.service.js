@@ -36,3 +36,30 @@ export async function signupUser ({name , email , password}) {
     };
 
 }
+
+
+export async function loginUser ({email , password}){
+   if ( !email || !password){
+    throw new Error("Email And Password are required")
+   }
+
+   const user = await User.findOne({email})
+
+   if(!user){
+    throw new Error("Invalid email or password")
+   }
+
+   const isPasswordValid = await bcrypt.compare(password , user.password)
+
+   if (!isPasswordValid){
+    throw new Error("Invalid email or password")
+   }
+
+   return {
+    id : user._id,
+    name : user.name,
+    email : user.email
+
+   }
+
+}

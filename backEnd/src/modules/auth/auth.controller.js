@@ -1,34 +1,36 @@
 import { signUpUser, loginUser } from "./auth.service.js";
 
-export function signUpController(req, res) {
-  try {
-    const userData = req.body;
 
-    const result = signUpUser(userData);
+// old signipcontroller logic 
+// export function signUpController(req, res) {
+//   try {
+//     const userData = req.body;
 
-    if (result.error) {
-      return res.status(400).json({
-        error: true,
-        message: result.message,
-      });
-    }
-    return (
-      res.status(201).json({
-        error: false,
-        user: result.user,
-      })
-    );
-  } 
-  catch (error) {
-    console.error("Signup error:", error);
+//     const result = signUpUser(userData);
 
-    return res.status(500).json({
-      error: true,
-      message: error.message,
-    });
-  }
-}
+//     if (result.error) {
+//       return res.status(400).json({
+//         error: true,
+//         message: result.message,
+//       });
+//     }
+//     return (
+//       res.status(201).json({
+//         error: false,
+//         user: result.user,
+//       })
+//     );
+//   } 
+//   catch (error) {
+//     console.error("Signup error:", error);
 
+//     return res.status(500).json({
+//       error: true,
+//       message: error.message,
+//     });
+//   }
+// }
+// for old login controller
 // export function loginController(req, res) {
 //   try {
 //     const credentials = req.body;
@@ -54,27 +56,49 @@ export function signUpController(req, res) {
 //   }
 // }
 
-export function loginController(req, res) {
+// export function loginController(req, res) {
+//   try {
+//     const credentials = req.body;
+
+//     const result = loginUser(credentials);
+
+//     if (result.error) {
+//       return res.status(401).json({
+//         error: true,
+//         message: result.message,
+//       });
+//     }
+
+//     return res.status(200).json({
+//       error: false,
+//       user: result.user,
+//     });
+//   } catch (error) {
+//     console.error("Login error:", error);
+
+//     return res.status(500).json({
+//       error: true,
+//       message: error.message,
+//     });
+//   }
+// }
+
+
+
+
+export async function loginController(req, res) {
   try {
-    const credentials = req.body;
+    const { email, password } = req.body;
 
-    const result = loginUser(credentials);
-
-    if (result.error) {
-      return res.status(401).json({
-        error: true,
-        message: result.message,
-      });
-    }
+    const user = await loginUser({ email, password });
 
     return res.status(200).json({
       error: false,
-      user: result.user,
+      message: "Login successful",
+      user,
     });
   } catch (error) {
-    console.error("Login error:", error);
-
-    return res.status(500).json({
+    return res.status(400).json({
       error: true,
       message: error.message,
     });

@@ -27,6 +27,7 @@ import { connectDatabase } from "./config/database.js";
 
 async function startServer() {
     await connectDatabase();
+    
 
     app.listen(env.PORT , () =>{
         console.log(`Server Running on port ${env.PORT}`)

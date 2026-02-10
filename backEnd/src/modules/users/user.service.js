@@ -15,9 +15,10 @@ export async function signupUser ({name , email , password}) {
         throw new Error("Password must be at least 8 characters.")
     }
     
-    const existingUser = await User.find({email})
+    const existingUser = await User.findOne({email : email})
+    // console.log("EXISTING USER:", existingUser);
     
-    if ( existingUser){
+    if (existingUser){
         throw new Error("Email already exists")
     }
 

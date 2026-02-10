@@ -3,6 +3,7 @@ import { signupUser } from "./user.service.js";
 
 export async function signupController(req , res) {
     try {
+        // console.log("🔥 SIGNUP CONTROLLER HIT", req.body);
         const {name , email , password} = req.body;
 
         const user = await signupUser({name , email , password})

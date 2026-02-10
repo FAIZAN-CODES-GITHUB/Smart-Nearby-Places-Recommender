@@ -3,19 +3,25 @@ import { verifyToken } from "../utils/jwt.js";
 import { User } from "../modules/users/user.model.js";
 
 export async function authMiddleware(req , res , next){
+   console.log("🟡 authMiddleware HIT");
   try {
     req.user = null
 
     const authHeader = req.headers.authorization
+    
 
     if(!authHeader){
+      
       return next()
+
     }
     const [type , token] =authHeader.split(" ")
 
     if ( type !== "Bearer" || !token){
+       
       return next()
     }
+    
     
     const decoded = verifyToken(token)
 
@@ -25,17 +31,18 @@ export async function authMiddleware(req , res , next){
       return next() 
     }
     
-    return {
+    req.user = {
       id: user._id,
       name: user.name,
       email: user.email,
     }
-    next() ;
+
+     return next() ;
 
 
   } catch (error) {
     req.user = null;
-    next();
+    return next();
   }
 
 }

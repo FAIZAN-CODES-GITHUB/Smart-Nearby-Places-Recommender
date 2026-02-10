@@ -1,6 +1,48 @@
-import { users } from "../modules/auth/auth.service.js";
+// import { users } from "../modules/auth/auth.service.js";
+import { verifyToken } from "../utils/jwt.js";
+import { User } from "../modules/users/user.model.js";
 
-export function authMiddleware(req , res , next){
+export async function authMiddleware(req , res , next){
+  try {
+    req.user = null
+
+    const authHeader = req.headers.authorization
+
+    if(!authHeader){
+      return next()
+    }
+    const [type , token] =authHeader.split(" ")
+
+    if ( type !== "Bearer" || !token){
+      return next()
+    }
+    
+    const decoded = verifyToken(token)
+
+    const user = await User.findById(decoded.userId)
+
+    if (!user){
+      return next() 
+    }
+    
+    return {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    }
+    next() ;
+
+
+  } catch (error) {
+    req.user = null;
+    next();
+  }
+
+}
+
+
+
+
 
   //Main Functionality
     // try {
@@ -32,20 +74,19 @@ export function authMiddleware(req , res , next){
 
     //     next()
     
-  const userId = req.headers["x-user-id"];
+//   const userId = req.headers["x-user-id"];
  
-  if (userId) {
-    req.user = { id: userId };
-  } else {
-    req.user = null;
-  }
+//   if (userId) {
+//     req.user = { id: userId };
+//   } else {
+//     req.user = null;
+//   }
 
-  next();
-}
+//   next();
+// }
 
 
     // } catch (error) {
     //     req.user === null 
     //     next();
     // }
-// }

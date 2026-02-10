@@ -1,4 +1,6 @@
-import { signUpUser, loginUser } from "./auth.service.js";
+// import { signUpUser, loginUser } from "./auth.service.js";
+import { loginUser } from "../users/user.service.js";
+import {generateToken} from "../../utils/jwt.js"
 
 
 // old signipcontroller logic 
@@ -92,10 +94,13 @@ export async function loginController(req, res) {
 
     const user = await loginUser({ email, password });
 
+    const token = generateToken({ userId : user.id})
+    
     return res.status(200).json({
       error: false,
       message: "Login successful",
       user,
+      token,
     });
   } catch (error) {
     return res.status(400).json({
